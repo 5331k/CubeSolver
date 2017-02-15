@@ -24,12 +24,18 @@ public abstract class AbstractWriter implements PuzzlePieceWriter {
 		int rows = size*4;
 		
 		boolean [][]unfoldedCubeMat = new boolean[rows][cols];
-		MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getLeftface().getTabsAndBlanksMatrix(), 0, 0, size);
-		MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getBottomface().getTabsAndBlanksMatrix(), 0, size, size);
-		MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getRightface().getTabsAndBlanksMatrix(), 0,size*2, size);
-		MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getFrontface().getTabsAndBlanksMatrix(), size, size, size);
-		MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getTopface().getTabsAndBlanksMatrix(), size*2, size, size);
-		MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getBackface().getTabsAndBlanksMatrix(), size*3, size, size);
+		if(cube.getLeftface() != null)
+			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getLeftface().getTabsAndBlanksMatrix(), 0, 0, size);
+		if(cube.getBottomface() != null)
+			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getBottomface().getTabsAndBlanksMatrix(), 0, size, size);
+		if(cube.getRightface() != null)
+			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getRightface().getTabsAndBlanksMatrix(), 0,size*2, size);
+		if(cube.getFrontface() != null)
+			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getFrontface().getTabsAndBlanksMatrix(), size, size, size);
+		if(cube.getTopface() != null)
+			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getTopface().getTabsAndBlanksMatrix(), size*2, size, size);
+		if(cube.getBackface() != null)
+			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getBackface().getTabsAndBlanksMatrix(), size*3, size, size);
 		printMatrix(unfoldedCubeMat,rows,cols,getValueMap());
 	}
 

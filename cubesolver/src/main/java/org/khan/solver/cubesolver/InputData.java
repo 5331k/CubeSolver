@@ -12,168 +12,210 @@ public class InputData {
 
 	static int pieceSize = 5;
 
+	  	/*		[]    
+			  [][][]  
+			[][][][][] 
+			  [][][]  
+			    [] */     
+//	public static PuzzlePiece getPiece5() {
+//		boolean[][] piece = { { false, false, true, false, false }, { false, true, true, true, false },
+//				{ true, true, true, true, true }, { false, true, true, true, false },
+//				{ false, false, true, false, false } };
+//		return new PuzzlePiece( piece, pieceSize);
+//	}
 	
-	public class BlueCube {
-			/*		[]    
-				  [][][]  
-				[][][][][] 
-				  [][][]  
-					[] */     
-		public static PuzzlePiece getPiece5() {
-			boolean[][] piece = { { false, false, true, false, false }, { false, true, true, true, false },
-					{ true, true, true, true, true }, { false, true, true, true, false },
-					{ false, false, true, false, false } };
-			return new PuzzlePiece( piece, pieceSize);
-		}
-
-				/*	 []  
-				   [][][][]
-				 [][][][] 
-				   [][][][]
-					 []  */
-		public static PuzzlePiece getPiece2() {
-			boolean[][] piece = { { false, false, true, false, false }, { false, true, true, true, true },
-					{ true, true, true, true, false }, { false, true, true, true, true },
-					{ false, false, true, false, false } };
-			return new PuzzlePiece(piece, pieceSize);
-		}
-
-				/*	[]  []  
-				  [][][][] 
-					[][][][] 
-				  [][][][] 
-				  [][]  []*/
-		public static PuzzlePiece getPiece3() {
-			boolean[][] piece = { { false, true, false, true, false }, { true, true, true, true, false },
-					{ false, true, true, true, true }, { true, true, true, true, false },
-					{ true, true, false, true, false } };
-
-			return new PuzzlePiece(piece, pieceSize);
-		}
-
-				/*	[]  []    
-				  [][][][][]  
-					[][][]  
-				  [][][][][]  
-				  []  []    */
-		public static PuzzlePiece getPiece4() {
-
-			boolean[][] piece = { { false, true, false, true, false }, { true, true, true, true, true },
-					{ false, true, true, true, false }, { true, true, true, true, true },
-					{ true, false, true, false, false } };
-
-			return new PuzzlePiece(piece, pieceSize);
-		}
-
-		/*   []  []  []   
-			 [][][][][]  
-			   [][][] 
-			 [][][][][] 
-			 []  []  [] */ 
-		public static PuzzlePiece getPiece1() {
-			boolean[][] piece = { { true, false, true, false, true }, { true, true, true, true, true },
-					{ false, true, true, true, false }, { true, true, true, true, true },
-					{ true, false, true, false, true } };
-
-			return new PuzzlePiece(piece, pieceSize);
-		}
-		
-				/*	[]  [] 
-					[][][][]
-				  [][][][]  
-					[][][][]
-				  [][]  [][]*/
-
-		public static PuzzlePiece getPiece6() {
-			boolean[][] piece = { { false, true, false, true, false }, { false, true, true, true, true },
-					{ true, true, true, true, false }, { false, true, true, true, true },
-					{ true, true, false, true, true } };
-			return new PuzzlePiece(piece, pieceSize);
-		}
-	}
-
-	 
-	public class RedCube {
-			/*		[]    
-				  [][][]  
-				[][][][][] 
-				  [][][]  
-					[] */     
-			public static PuzzlePiece getPiece1() {
+	public static PuzzlePiece getPiece1() {
 	boolean[][] piece = { { false, false, false, true, true }, { false, true, true, true, false },
 			{ true, true, true, true, true }, { false, true, true, true, false },
 			{ false, true, false, true, true } };
 	return new PuzzlePiece( piece, pieceSize);
-		}
+}
+//	public static PuzzlePiece getPiece1() {
+//	boolean[][] piece = { { true, true, false, true, false }, { true, true, true, true, false },
+//			{ true, true, true, true, false }, { false, true, true, true, true },
+//			{ false, false, true, false, false } };
+//	return new PuzzlePiece( piece, pieceSize);
+//}
+//	public static PuzzlePiece getPiece1() {
+//	boolean[][] piece = { { false, false, true, false, false }, { true, true, true, true, false },
+//			{ false, true, true, true, true }, { true, true, true, true, false },
+//			{ false, true, false, true, false } };
+//	return new PuzzlePiece( piece, pieceSize);
+//}
 
-				/*	 []  
-				   [][][][]
-				 [][][][] 
-				   [][][][]
-					 []  */
-			public static PuzzlePiece getPiece2() {
+
+
+	  		/*	 []  
+			   [][][][]
+			 [][][][] 
+			   [][][][]
+			     []  */
+//	public static PuzzlePiece getPiece2() {
+//		boolean[][] piece = { { false, false, true, false, false }, { false, true, true, true, true },
+//				{ true, true, true, true, false }, { false, true, true, true, true },
+//				{ false, false, true, false, false } };
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+//	
+	public static PuzzlePiece getPiece2() {
 		boolean[][] piece = { { false, true, false, true, false }, { true, true, true, true, false },
 				{ false, true, true, true, true }, { true, true, true, true, false },
 				{ false, true, false, false, false } };
 		return new PuzzlePiece(piece, pieceSize);
-		}
+	}
+//	public static PuzzlePiece getPiece2() {
+//		boolean[][] piece = { { false, false, false, true, true }, { true, true, true, true, false },
+//				{ true, true, true, true, true }, { false, true, true, true, false },
+//				{ false, true, false, true, false } };
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+//	public static PuzzlePiece getPiece2() {
+//	boolean[][] piece = { { false, false, true, false, true }, { true, true, true, true, true },
+//			{ false, true, true, true, false }, { true, true, true, true, false },
+//			{ false, true, false, true, false } };
+//	return new PuzzlePiece( piece, pieceSize);
+//}
 
-				/*	[]  []  
-				  [][][][] 
-					[][][][] 
-				  [][][][] 
-				  [][]  []*/
-		public static PuzzlePiece getPiece3() {
+
+	  		/*	[]  []  
+			  [][][][] 
+			    [][][][] 
+			  [][][][] 
+			  [][]  []*/
+//	public static PuzzlePiece getPiece3() {
+//		boolean[][] piece = { { false, true, false, true, false }, { true, true, true, true, false },
+//				{ false, true, true, true, true }, { true, true, true, true, false },
+//				{ true, true, false, true, false } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+//	
+	public static PuzzlePiece getPiece3() {
 		boolean[][] piece = { { false, true, true, false, true }, { true, true, true, true, true },
 				{ false, true, true, true, false }, { true, true, true, true, true },
 				{ true, false, false, true, true } };
 
 		return new PuzzlePiece(piece, pieceSize);
 	}
-		}
-
-				/*	[]  []    
-				  [][][][][]  
-					[][][]  
-				  [][][][][]  
-				  []  []    */
-		public static PuzzlePiece getPiece4() {
+//	public static PuzzlePiece getPiece3() {
+//		boolean[][] piece = { { false, true, false, false, false }, { true, true, true, true, false },
+//				{ false, true, true, true, true }, { true, true, true, true, false },
+//				{ false, false, true, false, false } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+//	public static PuzzlePiece getPiece3() {
+//		boolean[][] piece = { { false, false, true, false, true }, { false, true, true, true, true },
+//				{ true, true, true, true, false }, { true, true, true, true, true },
+//				{ true, false, true, false, false } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+	  		/*	[]  []    
+			  [][][][][]  
+			    [][][]  
+			  [][][][][]  
+			  []  []    */
+//	public static PuzzlePiece getPiece4() {
+//
+//		boolean[][] piece = { { false, true, false, true, false }, { true, true, true, true, true },
+//				{ false, true, true, true, false }, { true, true, true, true, true },
+//				{ true, false, true, false, false } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+	
+	public static PuzzlePiece getPiece4() {
 
 		boolean[][] piece = { { false, false, true, false, false }, { true, true, true, true, false },
 				{ false, true, true, true, true }, { true, true, true, true, false },
 				{ false, false, true, false, false } };
 
 		return new PuzzlePiece(piece, pieceSize);
-	}
-
-		/*   []  []  []   
-			 [][][][][]  
-			   [][][] 
-			 [][][][][] 
-			 []  []  [] */ 
-		public static PuzzlePiece getPiece5() {
+	}	
+//	public static PuzzlePiece getPiece4() {
+//
+//		boolean[][] piece = { { true, true, false, true, true }, { false, true, true, true, true },
+//				{ true, true, true, true, false }, { false, true, true, true, false },
+//				{ false, true, false, true, false } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}	
+//	public static PuzzlePiece getPiece4() {
+//
+//		boolean[][] piece = { { true, false, true, false, true }, { true, true, true, true, true },
+//				{ false, true, true, true, false }, { true, true, true, true, true },
+//				{ true, false, true, false, false } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+	/*   []  []  []   
+	     [][][][][]  
+	       [][][] 
+	     [][][][][] 
+	     []  []  [] */ 
+//	public static PuzzlePiece getPiece1() {
+//		boolean[][] piece = { { true, false, true, false, true }, { true, true, true, true, true },
+//				{ false, true, true, true, false }, { true, true, true, true, true },
+//				{ true, false, true, false, true } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+	public static PuzzlePiece getPiece5() {
 		boolean[][] piece = { { false, false, true, true, false }, { true, true, true, true, true },
 				{ false, true, true, true, false }, { true, true, true, true, true },
 				{ true, false, true, false, false } };
 
 		return new PuzzlePiece(piece, pieceSize);
 	}
-		
-				/*	[]  [] 
-					[][][][]
-				  [][][][]  
-					[][][][]
-				  [][]  [][]*/
+//	public static PuzzlePiece getPiece5() {
+//		boolean[][] piece = { { false, false, true, false, true }, { false, true, true, true, true },
+//				{ true, true, true, true, true }, { true, true, true, true, false },
+//				{ true, false, true, true, false } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+//	public static PuzzlePiece getPiece5() {
+//
+//		boolean[][] piece = { { false, false, true, false, false }, { false, true, true, true, true },
+//				{ true, true, true, true, false }, { false, true, true, true, true },
+//				{ true, true, false, true, false } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+	  		/*	[]  [] 
+			    [][][][]
+			  [][][][]  
+			    [][][][]
+			  [][]  [][]*/
 
+//	public static PuzzlePiece getPiece6() {
+//		boolean[][] piece = { { false, true, false, true, false }, { false, true, true, true, true },
+//				{ true, true, true, true, false }, { false, true, true, true, true },
+//				{ true, true, false, true, true } };
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
 	public static PuzzlePiece getPiece6() {
 		boolean[][] piece = { { false, true, true, false, false }, { false, true, true, true, false },
 				{ true, true, true, true, true }, { false, true, true, true, false },
 				{ true, true, false, true, true } };
 		return new PuzzlePiece(piece, pieceSize);
 	}
-	}
- 
-	 
+//	public static PuzzlePiece getPiece6() {
+//		boolean[][] piece = { { false, true, false, true, true }, { false, true, true, true, false },
+//				{ false, true, true, true, true }, { true, true, true, true, false },
+//				{ true, true, false, true, false } };
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
+	  
+//	public static PuzzlePiece getPiece6() {
+//
+//		boolean[][] piece = { { false, true, false, true, false }, { false, true, true, true, false },
+//				{ true, true, true, true, true }, { false, true, true, true, false },
+//				{ false, true, false, true, true } };
+//
+//		return new PuzzlePiece(piece, pieceSize);
+//	}
 	/**
 	 * 
 	 * @param mat

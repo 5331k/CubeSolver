@@ -20,7 +20,7 @@ public class PuzzlePieceFileWriter extends AbstractWriter{
 	}
 	
 	public PuzzlePieceFileWriter(String fileName) {
-		this.fileName = fileName;
+		this.fileName = fileName + (new SimpleDateFormat("yyyyMMddhhmmss'.txt'").format(new Date()));
 	}
 	
 	public String getDirPath(){

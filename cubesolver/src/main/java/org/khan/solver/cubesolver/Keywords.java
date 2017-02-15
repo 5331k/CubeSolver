@@ -8,6 +8,7 @@ package org.khan.solver.cubesolver;
  */
 public class Keywords {
 
+	public static final int pieceSize = 5;
 	public static final String TRUE = "true";
 
 	public static final String FALSE = "false";
@@ -15,5 +16,9 @@ public class Keywords {
 	public static final String CLOCK_WISE = "clockwise";
 	
 	public static final String ANTI_CLOCK_WISE = "anti-clockwise";
+	
+	public static final String RED = "Red";
+	public static final String BLUE = "Blue";
+	public static final String YELLO = "Yello";
 	
 }
