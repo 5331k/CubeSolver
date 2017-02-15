@@ -37,7 +37,11 @@ public class PieceCompatabilityChecker implements CompatabilityChecker {
 		else {
 			// two blocks on same position
 			for (int i = 0; i < side1Values.length; i++) {
-				if (side1Values[i] == true && side2Values[i] == true) {
+				if(side1Values[i] == false && side2Values[i] == false && i != 0 && i!= side1Values.length-1) {
+					sidesCompatible = false;
+					break ;
+				}
+				else if (side1Values[i] == true && side2Values[i] == true) {
 					sidesCompatible = false;
 					break;
 				}
