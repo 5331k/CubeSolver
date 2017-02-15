@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.khan.solver.cubesolver.input.BlueCube;
+import org.khan.solver.cubesolver.input.PurpleCube;
 import org.khan.solver.cubesolver.input.RedCube;
 import org.khan.solver.cubesolver.input.YellowCube;
 import org.khan.solver.cubesolver.processor.AbstractPuzzleSolver;
@@ -26,6 +27,8 @@ public class App
     	createAndPrintCube(getRedPieces(), Keywords.RED);
     	createAndPrintCube(getBluePieces(), Keywords.BLUE);
     	createAndPrintCube(getYellowPieces(), Keywords.YELLO);
+    	createAndPrintCube(getPurplePieces(), Keywords.PURPLE);
+    	
     }
     
     public static void createAndPrintCube(List<PuzzlePiece> pieces, String color ){
@@ -141,6 +144,39 @@ public class App
     	System.out.println("");
         
         PuzzlePiece p6 = YellowCube.getPiece6();
+        printPiece(p6);
+        System.out.println("...............................................");
+        
+        List<PuzzlePiece> pieces = new ArrayList<PuzzlePiece>();
+        pieces.add(p1);pieces.add(p2);pieces.add(p3);pieces.add(p6);pieces.add(p5);pieces.add(p4);
+        
+        return pieces;
+    }
+    
+    public static List<PuzzlePiece> getPurplePieces(){
+
+    	System.out.println("\nPurple Cube Input Pieces........................");
+    	PuzzlePiece p1 = PurpleCube.getPiece1();
+    	printPiece(p1);
+    	System.out.println("");
+    	
+    	PuzzlePiece p2 = PurpleCube.getPiece2();
+    	printPiece(p2);
+    	System.out.println("");
+     	
+    	PuzzlePiece p3 = PurpleCube.getPiece3();
+    	printPiece(p3);
+    	
+    	System.out.println("");
+    	PuzzlePiece p4 = PurpleCube.getPiece4();
+    	printPiece(p4);
+    	System.out.println("");
+    
+    	PuzzlePiece p5 = PurpleCube.getPiece5();
+    	printPiece(p5);
+    	System.out.println("");
+        
+        PuzzlePiece p6 = PurpleCube.getPiece6();
         printPiece(p6);
         System.out.println("...............................................");
         
