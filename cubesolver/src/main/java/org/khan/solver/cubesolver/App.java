@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.khan.solver.cubesolver.input.BlueCube;
+import org.khan.solver.cubesolver.input.CubeInputPieces;
 import org.khan.solver.cubesolver.input.PurpleCube;
 import org.khan.solver.cubesolver.input.RedCube;
 import org.khan.solver.cubesolver.input.YellowCube;
@@ -24,19 +25,18 @@ public class App
 {
     public static void main( String[] args )
     {
-    	createAndPrintCube(getRedPieces(), Keywords.RED);
-    	createAndPrintCube(getBluePieces(), Keywords.BLUE);
-    	createAndPrintCube(getYellowPieces(), Keywords.YELLO);
-    	createAndPrintCube(getPurplePieces(), Keywords.PURPLE);
-    	
+    	createAndPrintCube(new RedCube(), Keywords.RED);
+    	createAndPrintCube(new BlueCube(), Keywords.BLUE);
+    	createAndPrintCube(new YellowCube(), Keywords.YELLO);
+    	createAndPrintCube(new PurpleCube(), Keywords.PURPLE);   	
     }
     
-    public static void createAndPrintCube(List<PuzzlePiece> pieces, String color ){
+    public static void createAndPrintCube(CubeInputPieces inputCubePieces, String color ){
     	PuzzlePieceWriter pieceWriter = new PuzzlePieceConsoleWriter();
     	PuzzlePieceWriter fileWriter = new PuzzlePieceFileWriter(color);
         AbstractPuzzleSolver puzzleSolver = new PuzzleSolver(new PieceCompatabilityChecker());
         
-        puzzleSolver.solvePuzzle(pieces, false);
+        puzzleSolver.solvePuzzle(getInputPieces(inputCubePieces,color), false);
         List<Cube> cubeList = puzzleSolver.getCubeList();
         if(!cubeList.isEmpty()) {
         	Cube cube = puzzleSolver.getCubeList().get(0);
@@ -54,30 +54,30 @@ public class App
     		 
     }
     
-    public static List<PuzzlePiece> getRedPieces(){
+    public static List<PuzzlePiece> getInputPieces(CubeInputPieces input, String color){
 
-    	System.out.println("\nRed Cube Input Pieces........................");
-    	PuzzlePiece p1 = RedCube.getPiece1();
+    	System.out.println("\n" + color + " Cube Input Pieces........................");
+    	PuzzlePiece p1 = input.getPiece1();
     	printPiece(p1);
     	System.out.println("");
     	
-    	PuzzlePiece p2 = RedCube.getPiece2();
+    	PuzzlePiece p2 = input.getPiece2();
     	printPiece(p2);
     	System.out.println("");
      	
-    	PuzzlePiece p3 = RedCube.getPiece3();
+    	PuzzlePiece p3 = input.getPiece3();
     	printPiece(p3);
     	
     	System.out.println("");
-    	PuzzlePiece p4 = RedCube.getPiece4();
+    	PuzzlePiece p4 = input.getPiece4();
     	printPiece(p4);
     	System.out.println("");
     
-    	PuzzlePiece p5 = RedCube.getPiece5();
+    	PuzzlePiece p5 = input.getPiece5();
     	printPiece(p5);
     	System.out.println("");
         
-        PuzzlePiece p6 = RedCube.getPiece6();
+        PuzzlePiece p6 = input.getPiece6();
         printPiece(p6);
         System.out.println("...............................................");
         
@@ -86,104 +86,4 @@ public class App
         
         return pieces;
     }
-    
-    public static List<PuzzlePiece> getBluePieces(){
-
-    	System.out.println("\nBlue Cube Input Pieces........................");
-    	PuzzlePiece p1 = BlueCube.getPiece1();
-    	printPiece(p1);
-    	System.out.println("");
-    	
-    	PuzzlePiece p2 = BlueCube.getPiece2();
-    	printPiece(p2);
-    	System.out.println("");
-     	
-    	PuzzlePiece p3 = BlueCube.getPiece3();
-    	printPiece(p3);
-    	
-    	System.out.println("");
-    	PuzzlePiece p4 = BlueCube.getPiece4();
-    	printPiece(p4);
-    	System.out.println("");
-    
-    	PuzzlePiece p5 = BlueCube.getPiece5();
-    	printPiece(p5);
-    	System.out.println("");
-        
-        PuzzlePiece p6 = BlueCube.getPiece6();
-        printPiece(p6);
-        System.out.println("...............................................");
-        
-        List<PuzzlePiece> pieces = new ArrayList<PuzzlePiece>();
-        pieces.add(p1);pieces.add(p2);pieces.add(p3);pieces.add(p6);pieces.add(p5);pieces.add(p4);
-        
-        return pieces;
-    }
-    
-    public static List<PuzzlePiece> getYellowPieces(){
-
-    	System.out.println("\nYellow Cube Input Pieces........................");
-    	PuzzlePiece p1 = YellowCube.getPiece1();
-    	printPiece(p1);
-    	System.out.println("");
-    	
-    	PuzzlePiece p2 = YellowCube.getPiece2();
-    	printPiece(p2);
-    	System.out.println("");
-     	
-    	PuzzlePiece p3 = YellowCube.getPiece3();
-    	printPiece(p3);
-    	
-    	System.out.println("");
-    	PuzzlePiece p4 = YellowCube.getPiece4();
-    	printPiece(p4);
-    	System.out.println("");
-    
-    	PuzzlePiece p5 = YellowCube.getPiece5();
-    	printPiece(p5);
-    	System.out.println("");
-        
-        PuzzlePiece p6 = YellowCube.getPiece6();
-        printPiece(p6);
-        System.out.println("...............................................");
-        
-        List<PuzzlePiece> pieces = new ArrayList<PuzzlePiece>();
-        pieces.add(p1);pieces.add(p2);pieces.add(p3);pieces.add(p6);pieces.add(p5);pieces.add(p4);
-        
-        return pieces;
-    }
-    
-    public static List<PuzzlePiece> getPurplePieces(){
-
-    	System.out.println("\nPurple Cube Input Pieces........................");
-    	PuzzlePiece p1 = PurpleCube.getPiece1();
-    	printPiece(p1);
-    	System.out.println("");
-    	
-    	PuzzlePiece p2 = PurpleCube.getPiece2();
-    	printPiece(p2);
-    	System.out.println("");
-     	
-    	PuzzlePiece p3 = PurpleCube.getPiece3();
-    	printPiece(p3);
-    	
-    	System.out.println("");
-    	PuzzlePiece p4 = PurpleCube.getPiece4();
-    	printPiece(p4);
-    	System.out.println("");
-    
-    	PuzzlePiece p5 = PurpleCube.getPiece5();
-    	printPiece(p5);
-    	System.out.println("");
-        
-        PuzzlePiece p6 = PurpleCube.getPiece6();
-        printPiece(p6);
-        System.out.println("...............................................");
-        
-        List<PuzzlePiece> pieces = new ArrayList<PuzzlePiece>();
-        pieces.add(p1);pieces.add(p2);pieces.add(p3);pieces.add(p6);pieces.add(p5);pieces.add(p4);
-        
-        return pieces;
-    }
-  
 }

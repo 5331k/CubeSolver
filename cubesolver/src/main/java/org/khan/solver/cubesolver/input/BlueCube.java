@@ -2,7 +2,7 @@ package org.khan.solver.cubesolver.input;
 
 import org.khan.solver.cubesolver.puzzle.PuzzlePiece;
 
-public class BlueCube {
+public class BlueCube implements CubeInputPieces {
 	
 	static int pieceSize = 5;
 	/*		[]    
@@ -10,7 +10,7 @@ public class BlueCube {
 		[][][][][] 
 		  [][][]  
 			[] */     
-public static PuzzlePiece getPiece5() {
+public  PuzzlePiece getPiece5() {
 	boolean[][] piece = { { false, false, true, false, false }, { false, true, true, true, false },
 			{ true, true, true, true, true }, { false, true, true, true, false },
 			{ false, false, true, false, false } };
@@ -22,7 +22,7 @@ public static PuzzlePiece getPiece5() {
 		 [][][][] 
 		   [][][][]
 			 []  */
-public  static PuzzlePiece getPiece2() {
+public   PuzzlePiece getPiece2() {
 	boolean[][] piece = { { false, false, true, false, false }, { false, true, true, true, true },
 			{ true, true, true, true, false }, { false, true, true, true, true },
 			{ false, false, true, false, false } };
@@ -34,7 +34,7 @@ public  static PuzzlePiece getPiece2() {
 			[][][][] 
 		  [][][][] 
 		  [][]  []*/
-public static  PuzzlePiece getPiece3() {
+public   PuzzlePiece getPiece3() {
 	boolean[][] piece = { { false, true, false, true, false }, { true, true, true, true, false },
 			{ false, true, true, true, true }, { true, true, true, true, false },
 			{ true, true, false, true, false } };
@@ -47,7 +47,7 @@ public static  PuzzlePiece getPiece3() {
 			[][][]  
 		  [][][][][]  
 		  []  []    */
-public static  PuzzlePiece getPiece4() {
+public   PuzzlePiece getPiece4() {
 
 	boolean[][] piece = { { false, true, false, true, false }, { true, true, true, true, true },
 			{ false, true, true, true, false }, { true, true, true, true, true },
@@ -61,7 +61,7 @@ public static  PuzzlePiece getPiece4() {
 	   [][][] 
 	 [][][][][] 
 	 []  []  [] */ 
-public static PuzzlePiece getPiece1() {
+public  PuzzlePiece getPiece1() {
 	boolean[][] piece = { { true, false, true, false, true }, { true, true, true, true, true },
 			{ false, true, true, true, false }, { true, true, true, true, true },
 			{ true, false, true, false, true } };
@@ -75,7 +75,7 @@ public static PuzzlePiece getPiece1() {
 			[][][][]
 		  [][]  [][]*/
 
-public static PuzzlePiece getPiece6() {
+public  PuzzlePiece getPiece6() {
 	boolean[][] piece = { { false, true, false, true, false }, { false, true, true, true, true },
 			{ true, true, true, true, false }, { false, true, true, true, true },
 			{ true, true, false, true, true } };
