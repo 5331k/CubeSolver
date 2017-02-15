@@ -32,6 +32,23 @@ public abstract class AbstractPuzzleSolver implements Strategy{
 	 */
 	public void solvePuzzle(List<PuzzlePiece> pieces, boolean allcubes) {
 		// trying every cube as a fix bottom cube, to try different possible combinations
+//		PuzzlePiece []pieceArray = new PuzzlePiece[6];
+//		int j=0;
+//		for(PuzzlePiece piece : pieces){
+//			pieceArray[j] = piece;
+//			j++;
+//		}
+//		List<List<PuzzlePiece>> possiblePermutaions = new ArrayList<List<PuzzlePiece>>();
+//		permute(pieceArray,0,possiblePermutaions);
+//		boolean cubeFound;
+//		int size = pieces.size();
+//		
+//		for(List<PuzzlePiece> puzzlePieceList : possiblePermutaions){
+//			PuzzlePiece assumedBottomPiece = puzzlePieceList.remove(0);
+//			cubeFound = createCubes(assumedBottomPiece, puzzlePieceList, allcubes);
+//			if(!allcubes && cubeFound)
+//				break;
+//		}
 		boolean cubeFound;
 		int size = pieces.size();
 		for(int i=0;i<size;i++) {
@@ -74,4 +91,34 @@ public abstract class AbstractPuzzleSolver implements Strategy{
 	public List<Cube> getCubeList(){
 		return cubesList;
 	}
+	
+	 public void permute(PuzzlePiece[] a, int k, List<List<PuzzlePiece>> puzzlePieceCombinations) 
+	    {
+	        if (k == a.length) 
+	        {
+	        	List<PuzzlePiece> list = new ArrayList<PuzzlePiece>();
+	            for (int i = 0; i < a.length; i++) 
+	            {
+	            	list.add(new PuzzlePiece(a[i]));
+	                //System.out.print(" [" + a[i] + "] ");
+	            }
+	            puzzlePieceCombinations.add(list);
+	            System.out.println();
+	        } 
+	        else 
+	        {
+	            for (int i = k; i < a.length; i++) 
+	            {
+	            	PuzzlePiece temp = a[k];
+	                a[k] = a[i];
+	                a[i] = temp;
+	 
+	                permute(a, k + 1,puzzlePieceCombinations);
+	 
+	                temp = a[k];
+	                a[k] = a[i];
+	                a[i] = temp;
+	            }
+	        }
+	    }
 }
