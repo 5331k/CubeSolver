@@ -20,5 +20,7 @@ public class Keywords {
 	public static final String RED = "Red";
 	public static final String BLUE = "Blue";
 	public static final String YELLO = "Yello";
+
+	public static final String PURPLE = "Purple";
 	
 }
