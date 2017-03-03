@@ -90,6 +90,8 @@ public class PuzzleSolver extends AbstractPuzzleSolver {
 					PieceSideKey compatibleSideKey = processingState.getCompatibleSideKey(sideToCheck.getSideID());
 					if (compatibleSideKey == null)
 						break;
+					// update fixed piece side , so we can handle the corner cases, and avoid all corners as blank
+					PieceSide copyOfSideToCheck = new PieceSide(sideToCheck);
 					if( verifyCompatibleSideKeyAndPerformUpdate(cube, fixedPiece, pieceUnderObservation, SideNames.findEnum(sideToCheck.getSideID()),compatibleSideKey,false)) {
 						cube.setBottomface(fixedPiece);
 						verified = true;
@@ -109,6 +111,9 @@ public class PuzzleSolver extends AbstractPuzzleSolver {
 						// break inner loop
 						break;
 					}
+					else
+						// revert updated side
+						fixedPiece.synchronizeSide(sideToCheck, copyOfSideToCheck.getSideValues());
 				}
 				// break the outer loop
 				if(verified == true)
@@ -205,14 +210,25 @@ public class PuzzleSolver extends AbstractPuzzleSolver {
 		PuzzlePiece rotatedPiece= getRotatedPiece(joinedPiece, RotationForm.findEnum(compatibleSideKey.getRotationForm()));
 		String alignedID = rotatedPiece.rotatePuzzlePieceToAlign(SideNames.findEnum(compatibleSideKey.getSideID()),toConnectedSide.name());
 		compatibleSideKey.setSideID(alignedID);
+		
+		// FIX: Update bottom/fixed piece, to detect collision on corners
+		if(!topPiece)
+			updateFixedPieceSide(srcPiece,srcPiece.getSideByID(toConnectedSide.name()), rotatedPiece.getSideByID(compatibleSideKey.getSideID()));
+		
 		// If sides are compatible then check the adjacent pieces in cube, if they are okay with the new join, and there is no conflict
 		Map<PieceSide,String> requiredSideConnectedMap = cube.getConnectedSides(srcPiece, toConnectedSide, SideNames.findEnum(compatibleSideKey.getSideID()),topPiece);
-		update = checkAdjacentSides(requiredSideConnectedMap, rotatedPiece);
+		update = checkAdjacentSides(requiredSideConnectedMap, rotatedPiece, topPiece);
 		// if everything is fine then finally perform the update
 		if (update)
 			performUpdate(cube, srcPiece, joinedPiece, rotatedPiece, toConnectedSide, compatibleSideKey, requiredSideConnectedMap, topPiece);
 		return update;
 	}
+	
+	private void updateFixedPieceSide(PuzzlePiece pieceToUpdate, PieceSide sideToUpdate, PieceSide otherSide){
+		boolean []updatedValues = compatabilityChecker.getLogicalOROfTwoSides(sideToUpdate.getSideValues(), otherSide.getSideValues());
+		pieceToUpdate.synchronizeSide(sideToUpdate,updatedValues );
+	}
+
 	
 	/**
 	 * Update all the objects 
@@ -245,14 +261,22 @@ public class PuzzleSolver extends AbstractPuzzleSolver {
 	 * @param joinedPiece
 	 * @return true if all sides in the given map compatible with the given sides of joined piece
 	 */
-	protected boolean checkAdjacentSides(Map<PieceSide,String> requiredSideConnectedMap, PuzzlePiece joinedPiece){
+	protected boolean checkAdjacentSides(Map<PieceSide,String> requiredSideConnectedMap, PuzzlePiece joinedPiece, boolean topPiece){
 		boolean update = true;
 		for(PieceSide sideOfAdjacentPiece : requiredSideConnectedMap.keySet()){
 			String sideToMatchID = requiredSideConnectedMap.get(sideOfAdjacentPiece);
 			PieceSide sideToMatch = joinedPiece.getSideByID(sideToMatchID);
-			if(!compatabilityChecker.areSidesCompatible(sideOfAdjacentPiece, sideToMatch)) {
-				update = false;
-				break;
+			if(topPiece){
+				if(!compatabilityChecker.areSidesCompatible(sideOfAdjacentPiece, sideToMatch)) {
+					update = false;
+					break;
+				}
+			}
+			else {	
+				if(!checkAdjacentSideValues(sideOfAdjacentPiece, sideToMatch)) {
+					update = false;
+					break;
+				}
 			}
 		}
 		return update;
@@ -358,4 +382,94 @@ public class PuzzleSolver extends AbstractPuzzleSolver {
 		return compatibleSideKeyList;
 	}
 	
+	/**
+	 * As we have already fixed directions, so for adjacent sides, following cases are possible
+	 * 
+	 * @param adjacentSide 
+	 * @param joinedPieceSide side of freshly joined piece, with fixed piece, and need to match adjacent sides of that fixed piece
+	 * @return
+	 */
+	public boolean checkAdjacentSideValues(PieceSide adjacentSide, PieceSide joinedPieceSide){
+		if(adjacentSide.getSideID().equals(SideNames.TOP.name())){
+			if(joinedPieceSide.getSideID().equals(SideNames.LEFT.name()))
+				return compatabilityChecker.areValuesCompatible(adjacentSide.getSideValues(),joinedPieceSide.getSideValues());
+			else if (joinedPieceSide.getSideID().equals(SideNames.RIGHT.name()))
+				return compatabilityChecker.areValuesCompatible(adjacentSide.getSideValues(),MatrixHelper.reverseArray(joinedPieceSide.getSideValues()));
+			
+		} else if(adjacentSide.getSideID().equals(SideNames.BOTTOM.name())){
+			if(joinedPieceSide.getSideID().equals(SideNames.LEFT.name()))
+				return compatabilityChecker.areValuesCompatible(adjacentSide.getSideValues(),MatrixHelper.reverseArray(joinedPieceSide.getSideValues()));
+			else if (joinedPieceSide.getSideID().equals(SideNames.RIGHT.name()))
+				return compatabilityChecker.areValuesCompatible(adjacentSide.getSideValues(),joinedPieceSide.getSideValues());
+			
+		} else if(adjacentSide.getSideID().equals(SideNames.LEFT.name())){
+			if(joinedPieceSide.getSideID().equals(SideNames.TOP.name()))
+				return compatabilityChecker.areValuesCompatible(adjacentSide.getSideValues(),joinedPieceSide.getSideValues());
+			else if (joinedPieceSide.getSideID().equals(SideNames.BOTTOM.name()))
+				return compatabilityChecker.areValuesCompatible(adjacentSide.getSideValues(),MatrixHelper.reverseArray(joinedPieceSide.getSideValues()));
+			
+		} else if(adjacentSide.getSideID().equals(SideNames.RIGHT.name())){
+			if(joinedPieceSide.getSideID().equals(SideNames.TOP.name())) {
+				return compatabilityChecker.areValuesCompatible(adjacentSide.getSideValues(),MatrixHelper.reverseArray(joinedPieceSide.getSideValues()));
+			}
+			else if (joinedPieceSide.getSideID().equals(SideNames.BOTTOM.name()))
+				return compatabilityChecker.areValuesCompatible(adjacentSide.getSideValues(),joinedPieceSide.getSideValues());
+		}
+		
+		return false;
+	}
+	
+	
+//	public void getUpdatedJoinedPieceValues(PieceSide adjacentSide, PieceSide joinedPieceSide,  PuzzlePiece adJacentPiece,PuzzlePiece joinedPiece){
+//		
+//		boolean []updatedSdeValues;
+//		if(adjacentSide.getSideID().equals(SideNames.TOP.name())){
+//			if(joinedPieceSide.getSideID().equals(SideNames.LEFT.name())) {
+//				updatedSdeValues =  compatabilityChecker.getLogicalOROfTwoSides(adjacentSide.getSideValues(),joinedPieceSide.getSideValues());
+//				joinedPiece.synchronizeSide(joinedPieceSide,Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//				adJacentPiece.synchronizeSide(adjacentSide, Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//			}
+//			else if (joinedPieceSide.getSideID().equals(SideNames.RIGHT.name())) {
+//				updatedSdeValues =   compatabilityChecker.getLogicalOROfTwoSides(adjacentSide.getSideValues(),MatrixHelper.reverseArray(joinedPieceSide.getSideValues()));
+//				joinedPiece.synchronizeSide(joinedPieceSide,Arrays.copyOf(MatrixHelper.reverseArray(updatedSdeValues), updatedSdeValues.length));
+//				adJacentPiece.synchronizeSide(adjacentSide, Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//			}
+//			
+//		} else if(adjacentSide.getSideID().equals(SideNames.BOTTOM.name())){
+//			if(joinedPieceSide.getSideID().equals(SideNames.LEFT.name())) {
+//				updatedSdeValues =   compatabilityChecker.getLogicalOROfTwoSides(adjacentSide.getSideValues(),MatrixHelper.reverseArray(joinedPieceSide.getSideValues()));
+//				joinedPiece.synchronizeSide(joinedPieceSide,Arrays.copyOf(MatrixHelper.reverseArray(updatedSdeValues), updatedSdeValues.length));
+//				adJacentPiece.synchronizeSide(adjacentSide, Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//			}
+//			else if (joinedPieceSide.getSideID().equals(SideNames.RIGHT.name())) {
+//				updatedSdeValues =   compatabilityChecker.getLogicalOROfTwoSides(adjacentSide.getSideValues(),joinedPieceSide.getSideValues());
+//				joinedPiece.synchronizeSide(joinedPieceSide,Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//				adJacentPiece.synchronizeSide(adjacentSide, Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//			}
+//			
+//		} else if(adjacentSide.getSideID().equals(SideNames.LEFT.name())){
+//			if(joinedPieceSide.getSideID().equals(SideNames.TOP.name())) {
+//				updatedSdeValues =   compatabilityChecker.getLogicalOROfTwoSides(adjacentSide.getSideValues(),joinedPieceSide.getSideValues());
+//				joinedPiece.synchronizeSide(joinedPieceSide,Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//				adJacentPiece.synchronizeSide(adjacentSide, Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//			}
+//			else if (joinedPieceSide.getSideID().equals(SideNames.BOTTOM.name())){
+//				updatedSdeValues =   compatabilityChecker.getLogicalOROfTwoSides(adjacentSide.getSideValues(),MatrixHelper.reverseArray(joinedPieceSide.getSideValues()));
+//				joinedPiece.synchronizeSide(joinedPieceSide,Arrays.copyOf(MatrixHelper.reverseArray(updatedSdeValues), updatedSdeValues.length));
+//				adJacentPiece.synchronizeSide(adjacentSide, Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//			}
+//			
+//		} else if(adjacentSide.getSideID().equals(SideNames.RIGHT.name())){
+//			if(joinedPieceSide.getSideID().equals(SideNames.TOP.name())) {
+//				updatedSdeValues =   compatabilityChecker.getLogicalOROfTwoSides(adjacentSide.getSideValues(),MatrixHelper.reverseArray(joinedPieceSide.getSideValues()));
+//				joinedPiece.synchronizeSide(joinedPieceSide,Arrays.copyOf(MatrixHelper.reverseArray(updatedSdeValues), updatedSdeValues.length));
+//				adJacentPiece.synchronizeSide(adjacentSide, Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//			}	
+//			else if (joinedPieceSide.getSideID().equals(SideNames.BOTTOM.name())) {
+//				updatedSdeValues =   compatabilityChecker.getLogicalOROfTwoSides(adjacentSide.getSideValues(),joinedPieceSide.getSideValues());
+//				joinedPiece.synchronizeSide(joinedPieceSide,Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//				adJacentPiece.synchronizeSide(adjacentSide, Arrays.copyOf(updatedSdeValues, updatedSdeValues.length));
+//			}
+//		}
+//	}
 }

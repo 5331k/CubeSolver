@@ -36,6 +36,9 @@ public class PuzzlePiece {
 	protected PieceSide leftSide;
 	protected PieceSide rightSide;
 	
+	// if the sides are updated to detect collision, initial matrix will be used for printing
+	protected boolean [][] initialMatrix;
+	
 	/**
 	 * Default constructor 
 	 * 
@@ -47,6 +50,7 @@ public class PuzzlePiece {
 		uniqueID = IDGenerator.getInstance().generateUniqueID();
 		pieceSize = size;
 		initAllSideObjects(values);
+		initialMatrix = getTabsAndBlanksMatrix();
 	}
 	
 	/**
@@ -61,6 +65,7 @@ public class PuzzlePiece {
 		bottomSide = new PieceSide(objectToCopy.bottomSide);
 		leftSide = new PieceSide(objectToCopy.leftSide);
 		rightSide = new PieceSide(objectToCopy.rightSide);
+		initialMatrix = objectToCopy.initialMatrix;
 	}
 	
 
@@ -86,6 +91,10 @@ public class PuzzlePiece {
 		bottomSide.setSideValues(MatrixHelper.getRowFrom2dMatrix(tabsAndBlanksMatrix, pieceSize-1));
 		leftSide.setSideValues(MatrixHelper.getColumnFrom2dMatrix(tabsAndBlanksMatrix, 0));
 		rightSide.setSideValues(MatrixHelper.getColumnFrom2dMatrix(tabsAndBlanksMatrix, pieceSize -1));
+	}
+	
+	public boolean[][] getInitialMatrix(){
+		return initialMatrix;
 	}
 	
 	/**
@@ -378,6 +387,33 @@ public class PuzzlePiece {
 		PieceSide side = this.getSideByID(sideID);
 		side.setConnected(true);
 		side.setConnectedSideKey(connectedSideKey);
+	}
+	
+	/**
+	 * Updating one side has effect on other sides, so we handle all the cases
+	 */
+	public void synchronizeSide(PieceSide updatedSide, boolean []updateValues){
+		updatedSide.setSideValues(updateValues);
+		if(updatedSide.getSideID().equals(SideNames.BOTTOM.name())){
+			// update corenrs of left and right side, because they are shared with bottom side
+			leftSide.getSideValues()[pieceSize - 1] = updatedSide.getSideValues()[0];
+			rightSide.getSideValues()[pieceSize - 1] = updatedSide.getSideValues()[pieceSize-1];
+		}
+		else if(updatedSide.getSideID().equals(SideNames.TOP.name())){
+			// update corenrs of left and right side, because they are shared with top side
+			leftSide.getSideValues()[0] = updatedSide.getSideValues()[0];
+			rightSide.getSideValues()[0] = updatedSide.getSideValues()[pieceSize-1];
+		}
+		else if(updatedSide.getSideID().equals(SideNames.LEFT.name())){
+			// update corenrs of top and bottom side, because they are shared with left side
+			topSide.getSideValues()[0] = updatedSide.getSideValues()[0];
+			bottomSide.getSideValues()[0] = updatedSide.getSideValues()[pieceSize-1];
+		}
+		else if(updatedSide.getSideID().equals(SideNames.RIGHT.name())){
+			// update corenrs of top and bottom side, because they are shared with right side
+			topSide.getSideValues()[pieceSize-1] = updatedSide.getSideValues()[0];
+			bottomSide.getSideValues()[pieceSize-1] = updatedSide.getSideValues()[pieceSize-1];
+		}
 	}
 	
 }

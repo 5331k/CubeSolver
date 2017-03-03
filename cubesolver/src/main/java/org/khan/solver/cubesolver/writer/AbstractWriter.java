@@ -27,7 +27,7 @@ public abstract class AbstractWriter implements PuzzlePieceWriter {
 		if(cube.getLeftface() != null)
 			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getLeftface().getTabsAndBlanksMatrix(), 0, 0, size);
 		if(cube.getBottomface() != null)
-			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getBottomface().getTabsAndBlanksMatrix(), 0, size, size);
+			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getBottomface().getInitialMatrix(), 0, size, size);
 		if(cube.getRightface() != null)
 			MatrixHelper.copyOneMatrixToAnother(unfoldedCubeMat, cube.getRightface().getTabsAndBlanksMatrix(), 0,size*2, size);
 		if(cube.getFrontface() != null)
