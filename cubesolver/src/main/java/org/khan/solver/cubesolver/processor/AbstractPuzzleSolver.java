@@ -103,7 +103,6 @@ public abstract class AbstractPuzzleSolver implements Strategy{
 	                //System.out.print(" [" + a[i] + "] ");
 	            }
 	            puzzlePieceCombinations.add(list);
-	            System.out.println();
 	        } 
 	        else 
 	        {
