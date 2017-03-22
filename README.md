@@ -22,43 +22,4 @@ as given below as an example.
 Have a look at the following link for some background information:
 http://www.happycube.com/
 
-Here is an example:
-The pieces of the blue cube look as follows:
-
-    []    []  []  []    []  
-  [][][]  [][][][][]  [][][][]
-[][][][][]  [][][]  [][][][] 
-  [][][]  [][][][][]  [][][][]
-    []    []  []  []    []  
-  []  []    []  []    []  [] 
-[][][][]  [][][][][]  [][][][]
-  [][][][]  [][][]  [][][][]  
-[][][][]  [][][][][]  [][][][]
-[][]  []  []  []    [][]  [][]
-
-One of the solutions in "unfolded form" looks as follows:
-	 
-    []        []  []  []  []  
-  [][][]  [][][][][]  [][][] 
-[][][][][]  [][][]  [][][][][]
-  [][][]  [][][][][]  [][][] 
-    []      []  [][]    []  
-          []  []       
-          [][][][][]     
-            [][][]      
-          [][][][][]     
-            []  []      
-          []  []  []     
-          [][][][][]     
-            [][][]      
-          [][][][][]     
-          []  []  []     
-            []  []      
-          [][][][]      
-            [][][][]     
-          [][][][]      
-          [][]  []   	 
-
-
-In the base task you are only required to find one solution and to
-print it into a file. 
+See the example file.
