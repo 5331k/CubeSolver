@@ -37,5 +37,7 @@ public interface CompatabilityChecker {
 	 * @return list of piece ids
 	 */
 	public List<String> getCompatibleSideIDs(PuzzlePiece srcPiece, PieceSide sideToCheck);
+	
+	public boolean[] getLogicalOROfTwoSides(boolean [] side1, boolean[]side2);
 
 }

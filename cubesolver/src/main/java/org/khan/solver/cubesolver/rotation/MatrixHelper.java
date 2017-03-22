@@ -307,4 +307,14 @@ public class MatrixHelper {
 			mat[row][colIndex] = values[row];
 		}
 	}
+	
+	public static boolean[] reverseArray(boolean []values){
+		boolean[]newArray = new boolean[values.length];
+		int index = 0;
+		for(int i=values.length-1;i>=0;i--){
+			newArray[index] = values[i];
+			index++;
+		}
+		return newArray;
+	}
 }

@@ -62,4 +62,13 @@ public class PieceCompatabilityChecker implements CompatabilityChecker {
 		}
 		return compatibleSideIDs;
 	}
+	
+	public boolean[] getLogicalOROfTwoSides(boolean [] side1, boolean[]side2) {
+		boolean [] result = new boolean[side1.length];
+		for(int i=0;i<side1.length;i++){
+			result[i] = side1[i] | side2[i];
+		}
+		return result;
+	}
+	
 }
