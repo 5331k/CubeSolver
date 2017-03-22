@@ -22,4 +22,5 @@ as given below as an example.
 Have a look at the following link for some background information:
 http://www.happycube.com/
 
-See the example file.
+In the base task you are only required to find one solution and to
+print it into a file. See the Example.txt file for concrete example.
